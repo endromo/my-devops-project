@@ -2,6 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: my-python-app
+  annotations:
+    # Paksa Argo CD untuk tidak pull ulang dari registry
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   replicas: 1
   selector:
@@ -15,6 +18,8 @@ spec:
       containers:
       - name: my-python-app
         image: my-python-app:latest
+        # Tambahkan ini untuk memastikan image diambil dari local registry
+        imagePullPolicy: IfNotPresent 
         ports:
         - containerPort: 5000
 ---
