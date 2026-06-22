@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: my-python-app
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: my-python-app
@@ -14,10 +14,9 @@ spec:
     spec:
       containers:
       - name: my-python-app
-        # GANTI INI DENGAN IMAGE PUBLIK YANG ADA DI DOCKER HUB
-        image: nginx:latest 
+        image: my-python-app:latest
         ports:
-        - containerPort: 80
+        - containerPort: 5000
 ---
 apiVersion: v1
 kind: Service
@@ -29,5 +28,5 @@ spec:
   ports:
   - protocol: TCP
     port: 80
-    targetPort: 80
+    targetPort: 5000
   type: NodePort
